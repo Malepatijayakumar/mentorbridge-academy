@@ -61,7 +61,7 @@ const Landing = () => {
                 Enterprise-grade education management system connecting institutes, colleges, mentors, and students in a seamless learning ecosystem.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="text-lg px-8">
+                <Button size="lg" className="text-lg px-8" onClick={() => navigate('/auth')} aria-label="Sign in or register">
                   Get Started
                 </Button>
                 <Button size="lg" variant="outline" className="text-lg px-8">

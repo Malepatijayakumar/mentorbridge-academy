@@ -1,0 +1,34 @@
+import { DashboardLayout } from "@/components/DashboardLayout";
+import { SuperAdminSidebar } from "@/components/SuperAdminSidebar";
+
+const setSEO = (title: string, description: string, path: string) => {
+  document.title = title;
+  const desc = document.querySelector('meta[name="description"]');
+  if (desc) desc.setAttribute("content", description);
+  else {
+    const m = document.createElement("meta");
+    m.name = "description";
+    m.content = description;
+    document.head.appendChild(m);
+  }
+  const canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+  if (canonicalLink) canonicalLink.href = window.location.origin + path;
+  else {
+    const l = document.createElement("link");
+    l.setAttribute("rel", "canonical");
+    l.setAttribute("href", window.location.origin + path);
+    document.head.appendChild(l);
+  }
+};
+
+const SuperAdminColleges = () => {
+  setSEO("Colleges | Super Admin", "Manage colleges in the EdTech platform.", "/super-admin/colleges");
+  return (
+    <DashboardLayout userRole="Super Admin" userName="Admin User" sidebarContent={<SuperAdminSidebar />}>
+      <h1 className="text-2xl font-bold mb-4">Manage Colleges</h1>
+      <p className="text-muted-foreground">Create and manage colleges. (CRUD coming soon)</p>
+    </DashboardLayout>
+  );
+};
+
+export default SuperAdminColleges;
