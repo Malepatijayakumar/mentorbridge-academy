@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 
 const setSEO = (title: string, description: string, path: string) => {
   document.title = title;
@@ -55,6 +56,21 @@ const Auth = () => {
       toast({ title: "Sign in failed", description: error.message, variant: "destructive" });
     } else {
       toast({ title: "Welcome back!" });
+      // Fallback redirect: fetch profile immediately and navigate based on role
+      setTimeout(async () => {
+        const { data: userData } = await supabase.auth.getUser();
+        const user = userData?.user;
+        if (user) {
+          const { data: prof } = await supabase
+            .from("profiles")
+            .select("role")
+            .eq("user_id", user.id)
+            .single();
+          if (prof?.role) {
+            navigate(getRedirectPathForRole(prof.role), { replace: true });
+          }
+        }
+      }, 0);
     }
   };
 
