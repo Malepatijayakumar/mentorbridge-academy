@@ -47,6 +47,200 @@ export type Database = {
         }
         Relationships: []
       }
+      competition_registrations: {
+        Row: {
+          competition_id: string
+          id: string
+          registered_at: string
+          status: string
+          team_name: string | null
+          user_id: string
+        }
+        Insert: {
+          competition_id: string
+          id?: string
+          registered_at?: string
+          status?: string
+          team_name?: string | null
+          user_id: string
+        }
+        Update: {
+          competition_id?: string
+          id?: string
+          registered_at?: string
+          status?: string
+          team_name?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competition_registrations_competition_id_fkey"
+            columns: ["competition_id"]
+            isOneToOne: false
+            referencedRelation: "competitions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      competitions: {
+        Row: {
+          banner_url: string | null
+          college_id: string | null
+          competition_type: string
+          created_at: string
+          created_by: string
+          description: string | null
+          end_date: string
+          id: string
+          is_active: boolean
+          max_participants: number | null
+          prizes: string | null
+          registration_deadline: string | null
+          rules: string | null
+          start_date: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          banner_url?: string | null
+          college_id?: string | null
+          competition_type?: string
+          created_at?: string
+          created_by: string
+          description?: string | null
+          end_date: string
+          id?: string
+          is_active?: boolean
+          max_participants?: number | null
+          prizes?: string | null
+          registration_deadline?: string | null
+          rules?: string | null
+          start_date: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          banner_url?: string | null
+          college_id?: string | null
+          competition_type?: string
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          end_date?: string
+          id?: string
+          is_active?: boolean
+          max_participants?: number | null
+          prizes?: string | null
+          registration_deadline?: string | null
+          rules?: string | null
+          start_date?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competitions_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      event_registrations: {
+        Row: {
+          event_id: string
+          id: string
+          registered_at: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          event_id: string
+          id?: string
+          registered_at?: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          event_id?: string
+          id?: string
+          registered_at?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_registrations_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          banner_url: string | null
+          college_id: string | null
+          created_at: string
+          created_by: string
+          description: string | null
+          end_date: string
+          event_type: string
+          id: string
+          is_active: boolean
+          location: string | null
+          max_participants: number | null
+          registration_deadline: string | null
+          start_date: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          banner_url?: string | null
+          college_id?: string | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          end_date: string
+          event_type?: string
+          id?: string
+          is_active?: boolean
+          location?: string | null
+          max_participants?: number | null
+          registration_deadline?: string | null
+          start_date: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          banner_url?: string | null
+          college_id?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          end_date?: string
+          event_type?: string
+          id?: string
+          is_active?: boolean
+          location?: string | null
+          max_participants?: number | null
+          registration_deadline?: string | null
+          start_date?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "events_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           college_id: string | null
@@ -90,6 +284,95 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      resources: {
+        Row: {
+          college_id: string | null
+          created_at: string
+          created_by: string
+          description: string | null
+          file_size: number | null
+          file_type: string
+          file_url: string
+          id: string
+          is_active: boolean
+          tags: string[] | null
+          title: string
+          updated_at: string
+          visibility: string
+        }
+        Insert: {
+          college_id?: string | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          file_size?: number | null
+          file_type: string
+          file_url: string
+          id?: string
+          is_active?: boolean
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          visibility?: string
+        }
+        Update: {
+          college_id?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          file_size?: number | null
+          file_type?: string
+          file_url?: string
+          id?: string
+          is_active?: boolean
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          visibility?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resources_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      system_settings: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          id: string
+          setting_key: string
+          setting_value: Json
+          updated_at: string
+          updated_by: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          setting_key: string
+          setting_value: Json
+          updated_at?: string
+          updated_by: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          setting_key?: string
+          setting_value?: Json
+          updated_at?: string
+          updated_by?: string
+        }
+        Relationships: []
       }
     }
     Views: {
